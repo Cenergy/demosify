@@ -3,6 +3,11 @@ const path = require('path');
 const fs = require('fs');
 const rootPath = process.cwd();
 
+const CompressionPlugin = require('compression-webpack-plugin'); //引入gzip压缩插件
+// 定义压缩文件类型
+const productionGzipExtensions = ['js', 'css'];
+const TerserPlugin = require('terser-webpack-plugin');
+
 const configFile = path.join(rootPath, '.demosrc.js');
 if (!fs.existsSync(configFile)) {
   throw new Error('No .demosrc.js file found in project.');
@@ -39,6 +44,7 @@ let themeFilePath = path.resolve(__dirname, './src/css/default_theme.scss');
 if (config.themeFile) {
   themeFilePath = path.resolve(rootPath, config.themeFile);
 }
+console.log('Go: config', config);
 
 console.warn(`Output directory: ${output.dir}.`);
 console.warn(`PublicUrl: ${output.publicUrl || '/'}.`);
@@ -90,5 +96,47 @@ module.exports = {
       .end();
     config.module.rule('json').store.set('type', 'javascript/auto');
     config.output.filename('[name].bundle.js');
+  },
+  configureWebpack: {
+    plugins: [
+      new CompressionPlugin({
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
+        threshold: 10240,
+        minRatio: 0.8
+      })
+    ],
+    optimization: {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(
+                /[\\/]node_modules[\\/](.*?)([\\/]|$)/
+              )[1];
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `npm.${packageName.replace('@', '')}`;
+            }
+          }
+        }
+      },
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: {
+            compress: {
+              pure_funcs: ['console.log']
+            }
+          }
+        })
+      ]
+    }
   }
 };

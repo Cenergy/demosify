@@ -1,6 +1,6 @@
 {
   "name": "@demosify/core",
-  "version": "0.6.0",
+  "version": "0.5.5",
   "description": "Create a playground to show demos of your projects.",
   "main": "bin/cli.js",
   "author": "betseyliu",
@@ -20,13 +20,12 @@
     "@babel/preset-env": "^7.5.5",
     "@vue/eslint-config-prettier": "^4.0.1",
     "babel-eslint": "^10.0.2",
-    "compression-webpack-plugin": "^5.0.2",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "json-loader": "^0.5.7",
     "loader-utils": "^1.2.3",
     "monaco-editor": "^0.17.1",
-    "monaco-editor-webpack-plugin": "1.7.0",
+    "monaco-editor-webpack-plugin": "^1.7.0",
     "monaco-themes": "^0.2.5",
     "node-sass": "^4.12.0",
     "normalize.css": "^8.0.1",
@@ -36,7 +35,6 @@
     "raw-loader": "^3.0.0",
     "require-from-string": "^2.0.2",
     "sass-loader": "^7.1.0",
-    "terser-webpack-plugin": "^4.2.0",
     "v8-compile-cache": "^2.0.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
@@ -48,5 +46,8 @@
     "@babel/standalone": "^7.5.4",
     "docsify": "^4.9.4",
     "merge": "^1.2.1"
-  }
+  },
+  "__npminstall_done": "Mon Sep 14 2020 12:40:51 GMT+0800 (GMT+08:00)",
+  "_from": "@demosify/core@0.5.5",
+  "_resolved": "https://registry.npm.taobao.org/@demosify/core/download/@demosify/core-0.5.5.tgz"
 }

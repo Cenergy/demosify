@@ -8,18 +8,10 @@ import NotFoundPage from '@/pages/notFound.vue';
 
 Vue.use(VueRouter);
 
-let demoList = _demoList.map(demo => {
-  if (demo.demos) {
-    return demo.demos.map(child => {
-      if (typeof child !== 'string') child = demo.src + '/' + child.src;
-      return child;
-    });
-  }
+const demoList = _demoList.map(demo => {
   if (typeof demo !== 'string') demo = demo.src;
   return demo;
 });
-
-demoList = demoList.flat();
 
 const demoRoutes = demoList.map(demoName => ({
   name: demoName,

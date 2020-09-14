@@ -117,10 +117,6 @@ const mutations = {
     if (!state.boxes[type]) state.boxes[type] = {};
     state.boxes[type].editorHook = editorHook;
   },
-  UPDATE_INPUT_HOOK(state, { type, inputHook }) {
-    if (!state.boxes[type]) state.boxes[type] = {};
-    state.boxes[type].inputHook = inputHook;
-  },
   UPDATE_FOLD_BOXES(state, foldBoxes) {
     state.foldBoxes = foldBoxes;
   },
@@ -183,9 +179,6 @@ const actions = {
   },
   updateEditorHook({ commit }, pl) {
     commit('UPDATE_EDITOR_HOOK', pl);
-  },
-  updateInputHook({ commit }, pl) {
-    commit('UPDATE_INPUT_HOOK', pl);
   },
   updateFoldBoxes({ commit }, pl) {
     commit('UPDATE_FOLD_BOXES', pl);
@@ -262,15 +255,7 @@ const actions = {
     Object.entries(boxes).forEach(
       ([
         type,
-        {
-          tabName,
-          code,
-          transformer,
-          visible,
-          transform,
-          editorHook,
-          inputHook
-        }
+        { tabName, code, transformer, visible, transform, editorHook }
       ]) => {
         transform =
           transform ||
@@ -284,8 +269,7 @@ const actions = {
           dispatch('updateTransformer', { type, transformer }),
           dispatch('updateTransform', { type, transform }),
           dispatch('updateVisible', { type, visible: Boolean(visible) }),
-          dispatch('updateEditorHook', { type, editorHook }),
-          dispatch('updateInputHook', { type, inputHook })
+          dispatch('updateEditorHook', { type, editorHook })
         );
       }
     );

@@ -44,7 +44,6 @@ let themeFilePath = path.resolve(__dirname, './src/css/default_theme.scss');
 if (config.themeFile) {
   themeFilePath = path.resolve(rootPath, config.themeFile);
 }
-console.log('Go: config', config);
 
 console.warn(`Output directory: ${output.dir}.`);
 console.warn(`PublicUrl: ${output.publicUrl || '/'}.`);
